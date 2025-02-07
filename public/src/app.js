@@ -129,94 +129,39 @@ async function getData() {
   //   if (!docSnap.data()) {
   //     return;
   //   }
-  console.log(elementaryData.data().data); //배열로 된 데이터
-  for (let i = 0; i < elementaryData.data().data.length; i++) {
-    const newStudent = document.createElement("div");
-    newStudent.classList.add("student");
-    const newOrder = document.createElement("div");
-    newOrder.classList.add("order");
-    const newName = document.createElement("div");
-    newName.classList.add("name");
-    newName.innerText = elementaryData.data().data[i].name;
-    newName.setAttribute("contentEditable", true);
-    const newSchool = document.createElement("div");
-    newSchool.classList.add("school");
-    newSchool.innerText = elementaryData.data().data[i].school;
-    newSchool.setAttribute("contentEditable", true);
-    const newAge = document.createElement("div");
-    newAge.classList.add("age");
-    newAge.innerText = elementaryData.data().data[i].age;
-    newAge.setAttribute("contentEditable", true);
-    const newDelete = document.createElement("button");
-    newDelete.classList.add("delete");
-    newDelete.innerText = "X";
-    newDelete.addEventListener("click", deleteStudent);
+  const studentData = [elementaryData.data().data, middleData.data().data, highData.data().data];
+  const studentDiv = [divElementary, divMiddle, divHigh];
 
-    newStudent.appendChild(newOrder);
-    newStudent.appendChild(newName);
-    newStudent.appendChild(newSchool);
-    newStudent.appendChild(newAge);
-    newStudent.appendChild(newDelete);
-    divElementary.insertBefore(newStudent, divElementary.querySelector(".btnAdd"));
-  }
+  for (let j = 0; j < 3; j++) {
+    for (let i = 0; i < studentData[j].length; i++) {
+      const newStudent = document.createElement("div");
+      newStudent.classList.add("student");
+      const newOrder = document.createElement("div");
+      newOrder.classList.add("order");
+      const newName = document.createElement("div");
+      newName.classList.add("name");
+      newName.innerText = studentData[j][i].name;
+      newName.setAttribute("contentEditable", true);
+      const newSchool = document.createElement("div");
+      newSchool.classList.add("school");
+      newSchool.innerText = studentData[j][i].school;
+      newSchool.setAttribute("contentEditable", true);
+      const newAge = document.createElement("div");
+      newAge.classList.add("age");
+      newAge.innerText = studentData[j][i].age;
+      newAge.setAttribute("contentEditable", true);
+      const newDelete = document.createElement("button");
+      newDelete.classList.add("delete");
+      newDelete.innerText = "X";
+      newDelete.addEventListener("click", deleteStudent);
 
-  for (let i = 0; i < middleData.data().data.length; i++) {
-    const newStudent = document.createElement("div");
-    newStudent.classList.add("student");
-    const newOrder = document.createElement("div");
-    newOrder.classList.add("order");
-    const newName = document.createElement("div");
-    newName.classList.add("name");
-    newName.innerText = middleData.data().data[i].name;
-    newName.setAttribute("contentEditable", true);
-    const newSchool = document.createElement("div");
-    newSchool.classList.add("school");
-    newSchool.innerText = middleData.data().data[i].school;
-    newSchool.setAttribute("contentEditable", true);
-    const newAge = document.createElement("div");
-    newAge.classList.add("age");
-    newAge.innerText = middleData.data().data[i].age;
-    newAge.setAttribute("contentEditable", true);
-    const newDelete = document.createElement("button");
-    newDelete.classList.add("delete");
-    newDelete.innerText = "X";
-    newDelete.addEventListener("click", deleteStudent);
-
-    newStudent.appendChild(newOrder);
-    newStudent.appendChild(newName);
-    newStudent.appendChild(newSchool);
-    newStudent.appendChild(newAge);
-    newStudent.appendChild(newDelete);
-    divMiddle.insertBefore(newStudent, divMiddle.querySelector(".btnAdd"));
-  }
-  for (let i = 0; i < highData.data().data.length; i++) {
-    const newStudent = document.createElement("div");
-    newStudent.classList.add("student");
-    const newOrder = document.createElement("div");
-    newOrder.classList.add("order");
-    const newName = document.createElement("div");
-    newName.classList.add("name");
-    newName.innerText = highData.data().data[i].name;
-    newName.setAttribute("contentEditable", true);
-    const newSchool = document.createElement("div");
-    newSchool.classList.add("school");
-    newSchool.innerText = highData.data().data[i].school;
-    newSchool.setAttribute("contentEditable", true);
-    const newAge = document.createElement("div");
-    newAge.classList.add("age");
-    newAge.innerText = highData.data().data[i].age;
-    newAge.setAttribute("contentEditable", true);
-    const newDelete = document.createElement("button");
-    newDelete.classList.add("delete");
-    newDelete.innerText = "X";
-    newDelete.addEventListener("click", deleteStudent);
-
-    newStudent.appendChild(newOrder);
-    newStudent.appendChild(newName);
-    newStudent.appendChild(newSchool);
-    newStudent.appendChild(newAge);
-    newStudent.appendChild(newDelete);
-    divHigh.insertBefore(newStudent, divHigh.querySelector(".btnAdd"));
+      newStudent.appendChild(newOrder);
+      newStudent.appendChild(newName);
+      newStudent.appendChild(newSchool);
+      newStudent.appendChild(newAge);
+      newStudent.appendChild(newDelete);
+      studentDiv[j].insertBefore(newStudent, studentDiv[j].querySelector(".btnAdd"));
+    }
   }
 }
 
