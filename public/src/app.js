@@ -16,6 +16,7 @@ const btnMoneyStudent = footer.querySelector(".btnMoneyStudent");
 const btnRandomStudent = footer.querySelector(".btnRandomStudent");
 
 const btnAdd = document.querySelectorAll(".btnAdd");
+const btnDelete = document.querySelectorAll(".delete");
 
 btnAllStudent.addEventListener("click", turnPage);
 btnClassStudent.addEventListener("click", turnPage);
@@ -24,6 +25,9 @@ btnMoneyStudent.addEventListener("click", turnPage);
 btnRandomStudent.addEventListener("click", turnPage);
 btnAdd.forEach((btn) => {
   btn.addEventListener("click", addStudent);
+});
+btnDelete.forEach((btn) => {
+  btn.addEventListener("click", deleteStudent);
 });
 document.addEventListener("keydown", save);
 
@@ -52,16 +56,25 @@ function addStudent(event) {
   const newAge = document.createElement("div");
   newAge.classList.add("age");
   newAge.setAttribute("contentEditable", true);
+  const newDelete = document.createElement("button");
+  newDelete.classList.add("delete");
+  newDelete.innerText = "X";
+  newDelete.addEventListener("click", deleteStudent);
   newStudent.appendChild(newOrder);
   newStudent.appendChild(newName);
   newStudent.appendChild(newSchool);
   newStudent.appendChild(newAge);
+  newStudent.appendChild(newDelete);
 
   parentDiv.insertBefore(newStudent, lastChild);
 }
+function deleteStudent(event) {
+  const thisStudent = event.target.parentNode;
+  thisStudent.remove();
+}
 async function save(event) {
   if (event.ctrlKey) {
-    if (event.key === "s" || event.key === "S") {
+    if (event.key === "s") {
       event.preventDefault();
 
       //초등
@@ -97,6 +110,114 @@ async function save(event) {
       await setDoc(doc(db, "studentData", "elementary"), {
         data: elementaryData,
       });
+      await setDoc(doc(db, "studentData", "middle"), {
+        data: middleData,
+      });
+      await setDoc(doc(db, "studentData", "high"), {
+        data: highData,
+      });
     }
   }
 }
+async function getData() {
+  const divElementary = document.querySelector(".elementary");
+  const divMiddle = document.querySelector(".middle");
+  const divHigh = document.querySelector(".high");
+  const elementaryData = await getDoc(doc(db, "studentData", "elementary"));
+  const middleData = await getDoc(doc(db, "studentData", "middle"));
+  const highData = await getDoc(doc(db, "studentData", "high"));
+  //   if (!docSnap.data()) {
+  //     return;
+  //   }
+  console.log(elementaryData.data().data); //배열로 된 데이터
+  for (let i = 0; i < elementaryData.data().data.length; i++) {
+    const newStudent = document.createElement("div");
+    newStudent.classList.add("student");
+    const newOrder = document.createElement("div");
+    newOrder.classList.add("order");
+    const newName = document.createElement("div");
+    newName.classList.add("name");
+    newName.innerText = elementaryData.data().data[i].name;
+    newName.setAttribute("contentEditable", true);
+    const newSchool = document.createElement("div");
+    newSchool.classList.add("school");
+    newSchool.innerText = elementaryData.data().data[i].school;
+    newSchool.setAttribute("contentEditable", true);
+    const newAge = document.createElement("div");
+    newAge.classList.add("age");
+    newAge.innerText = elementaryData.data().data[i].age;
+    newAge.setAttribute("contentEditable", true);
+    const newDelete = document.createElement("button");
+    newDelete.classList.add("delete");
+    newDelete.innerText = "X";
+    newDelete.addEventListener("click", deleteStudent);
+
+    newStudent.appendChild(newOrder);
+    newStudent.appendChild(newName);
+    newStudent.appendChild(newSchool);
+    newStudent.appendChild(newAge);
+    newStudent.appendChild(newDelete);
+    divElementary.insertBefore(newStudent, divElementary.querySelector(".btnAdd"));
+  }
+
+  for (let i = 0; i < middleData.data().data.length; i++) {
+    const newStudent = document.createElement("div");
+    newStudent.classList.add("student");
+    const newOrder = document.createElement("div");
+    newOrder.classList.add("order");
+    const newName = document.createElement("div");
+    newName.classList.add("name");
+    newName.innerText = middleData.data().data[i].name;
+    newName.setAttribute("contentEditable", true);
+    const newSchool = document.createElement("div");
+    newSchool.classList.add("school");
+    newSchool.innerText = middleData.data().data[i].school;
+    newSchool.setAttribute("contentEditable", true);
+    const newAge = document.createElement("div");
+    newAge.classList.add("age");
+    newAge.innerText = middleData.data().data[i].age;
+    newAge.setAttribute("contentEditable", true);
+    const newDelete = document.createElement("button");
+    newDelete.classList.add("delete");
+    newDelete.innerText = "X";
+    newDelete.addEventListener("click", deleteStudent);
+
+    newStudent.appendChild(newOrder);
+    newStudent.appendChild(newName);
+    newStudent.appendChild(newSchool);
+    newStudent.appendChild(newAge);
+    newStudent.appendChild(newDelete);
+    divMiddle.insertBefore(newStudent, divMiddle.querySelector(".btnAdd"));
+  }
+  for (let i = 0; i < highData.data().data.length; i++) {
+    const newStudent = document.createElement("div");
+    newStudent.classList.add("student");
+    const newOrder = document.createElement("div");
+    newOrder.classList.add("order");
+    const newName = document.createElement("div");
+    newName.classList.add("name");
+    newName.innerText = highData.data().data[i].name;
+    newName.setAttribute("contentEditable", true);
+    const newSchool = document.createElement("div");
+    newSchool.classList.add("school");
+    newSchool.innerText = highData.data().data[i].school;
+    newSchool.setAttribute("contentEditable", true);
+    const newAge = document.createElement("div");
+    newAge.classList.add("age");
+    newAge.innerText = highData.data().data[i].age;
+    newAge.setAttribute("contentEditable", true);
+    const newDelete = document.createElement("button");
+    newDelete.classList.add("delete");
+    newDelete.innerText = "X";
+    newDelete.addEventListener("click", deleteStudent);
+
+    newStudent.appendChild(newOrder);
+    newStudent.appendChild(newName);
+    newStudent.appendChild(newSchool);
+    newStudent.appendChild(newAge);
+    newStudent.appendChild(newDelete);
+    divHigh.insertBefore(newStudent, divHigh.querySelector(".btnAdd"));
+  }
+}
+
+getData();

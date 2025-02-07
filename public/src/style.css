@@ -34,6 +34,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  overflow-y: scroll;
 }
 .title {
   width: 100%;
@@ -74,10 +75,14 @@ body {
 .ageFrame {
   flex: 2;
 }
+.deleteFrame {
+  flex: 1;
+}
 .orderFrame,
 .nameFrame,
 .schoolFrame,
-.ageFrame {
+.ageFrame,
+.deleteFrame {
   outline: 1px solid black;
   display: flex;
   justify-content: center;
@@ -102,10 +107,14 @@ body {
 .age {
   flex: 2;
 }
+.delete {
+  flex: 1;
+}
 .order,
 .name,
 .school,
-.age {
+.age,
+.delete {
   outline: 1px solid black;
   display: flex;
   justify-content: center;
