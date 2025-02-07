@@ -1,0 +1,134 @@
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+.container {
+  border: 5px solid gray;
+  width: 99.4%;
+  height: 98.9%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+.main {
+  width: 100%;
+  height: 95%;
+  display: flex;
+}
+.main .main-page {
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+.main-page .allStudent {
+  flex-direction: row;
+}
+.elementary,
+.middle,
+.high {
+  flex: 1;
+  border: 2px solid black;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.title {
+  width: 100%;
+  height: 3%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(231, 226, 226);
+}
+.btnAdd {
+  width: 6%;
+  height: 3%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 500;
+  font-size: 150%;
+  border-radius: 60%;
+  margin-top: 1%;
+}
+/*  */
+.studentFrame {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 4%;
+  outline: 1px solid black;
+}
+.orderFrame {
+  flex: 1;
+}
+.nameFrame {
+  flex: 4;
+}
+.schoolFrame {
+  flex: 4;
+}
+.ageFrame {
+  flex: 2;
+}
+.orderFrame,
+.nameFrame,
+.schoolFrame,
+.ageFrame {
+  outline: 1px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.student {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 4%;
+  outline: 1px solid black;
+}
+.order {
+  flex: 1;
+}
+.name {
+  flex: 4;
+}
+.school {
+  flex: 4;
+}
+.age {
+  flex: 2;
+}
+.order,
+.name,
+.school,
+.age {
+  outline: 1px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+/*  */
+.footer {
+  width: 100%;
+  height: 5%;
+  background-color: rgb(231, 226, 226);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.footer .footer-item {
+  height: 95%;
+  min-width: 6%;
+  margin-right: 0.2%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hide {
+  display: none !important;
+}

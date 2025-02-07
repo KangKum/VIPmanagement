@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>VIP Management</title>
+    <link rel="stylesheet" href="src/style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="main">
+        <div class="main-page allStudent" pageIndex="0">
+          <div class="elementary">
+            <div class="title">초등</div>
+            <div class="studentFrame">
+              <div class="orderFrame">순서</div>
+              <div class="nameFrame">이름</div>
+              <div class="schoolFrame">학교</div>
+              <div class="ageFrame">학년</div>
+            </div>
+            <button class="btnAdd">+</button>
+          </div>
+          <div class="middle">
+            <div class="title">중등</div>
+            <div class="studentFrame">
+              <div class="orderFrame">순서</div>
+              <div class="nameFrame">이름</div>
+              <div class="schoolFrame">학교</div>
+              <div class="ageFrame">학년</div>
+            </div>
+            <button class="btnAdd">+</button>
+          </div>
+          <div class="high">
+            <div class="title">고등</div>
+            <div class="studentFrame">
+              <div class="orderFrame">순서</div>
+              <div class="nameFrame">이름</div>
+              <div class="schoolFrame">학교</div>
+              <div class="ageFrame">학년</div>
+            </div>
+            <button class="btnAdd">+</button>
+          </div>
+        </div>
+        <div class="main-page classStudent hide" pageIndex="1">반별명단</div>
+        <div class="main-page testStudent hide" pageIndex="2">시험기간명단</div>
+        <div class="main-page moneyStudent hide" pageIndex="3">입금명단</div>
+        <div class="main-page randomStudent hide" pageIndex="4">ㅇㅇ명단</div>
+      </div>
+      <div class="footer">
+        <button class="footer-item btnAllStudent" btnIndex="0">전체명단</button>
+        <button class="footer-item btnClassStudent" btnIndex="1">반별명단</button>
+        <button class="footer-item btnTestStudent" btnIndex="2">시험기간명단</button>
+        <button class="footer-item btnMoneyStudent" btnIndex="3">입금명단</button>
+        <button class="footer-item btnRandomStudent" btnIndex="4">ㅇㅇ명단</button>
+      </div>
+    </div>
+    <script src="src/firebase-sdk.js" type="module"></script>
+    <script src="src/app.js" type="module"></script>
+  </body>
+</html>
