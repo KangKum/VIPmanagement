@@ -18,28 +18,33 @@ const btnRandomStudent = footer.querySelector(".btnRandomStudent");
 const btnAdd = document.querySelectorAll(".btnAdd");
 const btnDelete = document.querySelectorAll(".delete");
 
-btnAllStudent.addEventListener("click", turnPage);
-btnClassStudent.addEventListener("click", turnPage);
-btnTestStudent.addEventListener("click", turnPage);
-btnMoneyStudent.addEventListener("click", turnPage);
-btnRandomStudent.addEventListener("click", turnPage);
+const btnList = document.querySelectorAll(".btnList");
+
+btnAllStudent.addEventListener("click", turnPageInStudent);
+btnClassStudent.addEventListener("click", turnPageInStudent);
+btnTestStudent.addEventListener("click", turnPageInStudent);
+btnMoneyStudent.addEventListener("click", turnPageInStudent);
+btnRandomStudent.addEventListener("click", turnPageInStudent);
 btnAdd.forEach((btn) => {
-  btn.addEventListener("click", addStudent);
+  btn.addEventListener("click", addStudentInStudent);
 });
 btnDelete.forEach((btn) => {
-  btn.addEventListener("click", deleteStudent);
+  btn.addEventListener("click", deleteStudentInStudent);
+});
+btnList.forEach((btn) => {
+  btn.addEventListener("click", turnPageInClass);
 });
 document.addEventListener("keydown", save);
 
-function turnPage(event) {
-  let index = event.target.getAttribute("btnIndex");
-  document.querySelectorAll(".main-page").forEach((page) => {
+// 첫번째 페이지
+function turnPageInStudent(event) {
+  const thisIndex = event.target.getAttribute("btnIndex");
+  main.querySelectorAll(".main-page").forEach((page) => {
     page.classList.add("hide");
   });
-  main.querySelector(`.main-page[pageIndex="${index}"]`).classList.remove("hide");
+  main.querySelector(`.main-page[pageIndex="${thisIndex}"]`).classList.remove("hide");
 }
-
-function addStudent(event) {
+function addStudentInStudent(event) {
   const parentDiv = event.target.parentNode;
   const lastChild = event.target;
 
@@ -59,7 +64,7 @@ function addStudent(event) {
   const newDelete = document.createElement("button");
   newDelete.classList.add("delete");
   newDelete.innerText = "X";
-  newDelete.addEventListener("click", deleteStudent);
+  newDelete.addEventListener("click", deleteStudentInStudent);
   newStudent.appendChild(newOrder);
   newStudent.appendChild(newName);
   newStudent.appendChild(newSchool);
@@ -68,10 +73,21 @@ function addStudent(event) {
 
   parentDiv.insertBefore(newStudent, lastChild);
 }
-function deleteStudent(event) {
+function deleteStudentInStudent(event) {
   const thisStudent = event.target.parentNode;
   thisStudent.remove();
 }
+
+// 두번째 페이지
+function turnPageInClass(event) {
+  const thisIndex = event.target.getAttribute("btnIndex");
+  main.querySelectorAll(".main-page.classStudent .content").forEach((content) => {
+    content.classList.add("hide");
+  });
+  main.querySelector(`.main-page.classStudent .content[pageIndex="${thisIndex}"]`).classList.remove("hide");
+}
+
+// Firebase
 async function save(event) {
   if (event.ctrlKey) {
     if (event.key === "s") {
@@ -153,7 +169,7 @@ async function getData() {
       const newDelete = document.createElement("button");
       newDelete.classList.add("delete");
       newDelete.innerText = "X";
-      newDelete.addEventListener("click", deleteStudent);
+      newDelete.addEventListener("click", deleteStudentInStudent);
 
       newStudent.appendChild(newOrder);
       newStudent.appendChild(newName);
