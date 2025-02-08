@@ -38,6 +38,20 @@ body {
   height: 100%;
   border: 1px solid red;
 }
+.main-page.classStudent .content {
+  display: flex;
+  flex-direction: row;
+}
+.main-page.classStudent .content .section {
+  flex: 1;
+  height: 100%;
+  border: 1px solid black;
+}
+.main-page.classStudent .content .classTable {
+  border: 1px solid black;
+  width: 90%;
+  margin-bottom: 2%;
+}
 .main-page.classStudent .list .btnList {
   width: 100%;
   height: 5%;
@@ -72,66 +86,131 @@ body {
   border-radius: 60%;
   margin-top: 1%;
 }
-/*  */
-.studentFrame {
+
+/* 첫번째 페이지지 */
+.allStudent .studentFrame {
   display: flex;
   flex-direction: row;
   width: 100%;
   height: 4%;
   outline: 1px solid black;
 }
-.orderFrame {
+.allStudent .orderFrame {
+  flex: 1.5;
+}
+.allStudent .nameFrame {
+  flex: 3;
+}
+.allStudent .schoolFrame {
+  flex: 3;
+}
+.allStudent .ageFrame {
+  flex: 1.5;
+}
+.allStudent .deleteFrame {
   flex: 1;
 }
-.nameFrame {
-  flex: 4;
-}
-.schoolFrame {
-  flex: 4;
-}
-.ageFrame {
-  flex: 2;
-}
-.deleteFrame {
-  flex: 1;
-}
-.orderFrame,
-.nameFrame,
-.schoolFrame,
-.ageFrame,
-.deleteFrame {
+.allStudent .orderFrame,
+.allStudent .nameFrame,
+.allStudent .schoolFrame,
+.allStudent .ageFrame,
+.allStudent .deleteFrame {
   outline: 1px solid black;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.student {
+.allStudent .student {
   display: flex;
   flex-direction: row;
   width: 100%;
   height: 4%;
   outline: 1px solid black;
 }
-.order {
+.allStudent .order {
+  flex: 1.5;
+}
+.allStudent .name {
+  flex: 3;
+}
+.allStudent .school {
+  flex: 3;
+}
+.allStudent .age {
+  flex: 1.5;
+}
+.allStudent .delete {
   flex: 1;
 }
-.name {
-  flex: 4;
+.allStudent .order,
+.allStudent .name,
+.allStudent .school,
+.allStudent .age,
+.allStudent .delete {
+  outline: 1px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.school {
-  flex: 4;
+/* 두번째 페이지 */
+.classStudent .studentFrame {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 4%;
+  outline: 1px solid black;
 }
-.age {
-  flex: 2;
+.classStudent .orderFrame {
+  flex: 1.5;
 }
-.delete {
+.classStudent .nameFrame {
+  flex: 3;
+}
+.classStudent .schoolFrame {
+  flex: 3;
+}
+.classStudent .ageFrame {
+  flex: 1.5;
+}
+.classStudent .deleteFrame {
   flex: 1;
 }
-.order,
-.name,
-.school,
-.age,
-.delete {
+.classStudent .orderFrame,
+.classStudent .nameFrame,
+.classStudent .schoolFrame,
+.classStudent .ageFrame,
+.classStudent .deleteFrame {
+  outline: 1px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.classStudent .student {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  outline: 1px solid black;
+}
+.classStudent .order {
+  flex: 1.5;
+}
+.classStudent .name {
+  flex: 3;
+}
+.classStudent .school {
+  flex: 3;
+}
+.classStudent .age {
+  flex: 1.5;
+}
+.classStudent .delete {
+  flex: 1;
+}
+.classStudent .order,
+.classStudent .name,
+.classStudent .school,
+.classStudent .age,
+.classStudent .delete {
   outline: 1px solid black;
   display: flex;
   justify-content: center;

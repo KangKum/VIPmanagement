@@ -18,7 +18,8 @@ const btnRandomStudent = footer.querySelector(".btnRandomStudent");
 const btnAdd = document.querySelectorAll(".btnAdd");
 const btnDelete = document.querySelectorAll(".delete");
 
-const btnList = document.querySelectorAll(".btnList");
+const btnList = document.querySelectorAll(".btnList:not(.btnAddTable)");
+const btnAddTable = document.querySelector(".btnAddTable");
 
 btnAllStudent.addEventListener("click", turnPageInStudent);
 btnClassStudent.addEventListener("click", turnPageInStudent);
@@ -34,6 +35,7 @@ btnDelete.forEach((btn) => {
 btnList.forEach((btn) => {
   btn.addEventListener("click", turnPageInClass);
 });
+btnAddTable.addEventListener("click", addTableInclass);
 document.addEventListener("keydown", save);
 
 // 첫번째 페이지
@@ -85,6 +87,52 @@ function turnPageInClass(event) {
     content.classList.add("hide");
   });
   main.querySelector(`.main-page.classStudent .content[pageIndex="${thisIndex}"]`).classList.remove("hide");
+}
+function addTableInclass() {
+  const thisIndex = classStudent.querySelector(".content:not(.hide)").getAttribute("pageIndex");
+
+  const newTable = document.createElement("div");
+  const newFrame = document.createElement("div");
+  const newOrderFrame = document.createElement("div");
+  const newNameFrame = document.createElement("div");
+  const newSchoolFrame = document.createElement("div");
+  const newAgeFrame = document.createElement("div");
+  newTable.classList.add("classTable");
+  newFrame.classList.add("studentFrame");
+  newOrderFrame.classList.add("orderFrame");
+  newNameFrame.classList.add("nameFrame");
+  newSchoolFrame.classList.add("schoolFrame");
+  newAgeFrame.classList.add("ageFrame");
+  newOrderFrame.innerText = "순서";
+  newNameFrame.innerText = "이름";
+  newSchoolFrame.innerText = "학교";
+  newAgeFrame.innerText = "학년";
+  newFrame.appendChild(newOrderFrame);
+  newFrame.appendChild(newNameFrame);
+  newFrame.appendChild(newSchoolFrame);
+  newFrame.appendChild(newAgeFrame);
+
+  const newStudent = document.createElement("div");
+  const newOrder = document.createElement("div");
+  const newName = document.createElement("div");
+  const newSchool = document.createElement("div");
+  const newAge = document.createElement("div");
+  newStudent.classList.add("student");
+  newOrder.classList.add("order");
+  newName.classList.add("name");
+  newSchool.classList.add("school");
+  newAge.classList.add("age");
+  newName.setAttribute("contenteditable", true);
+  newSchool.setAttribute("contenteditable", true);
+  newAge.setAttribute("contenteditable", true);
+  newStudent.appendChild(newOrder);
+  newStudent.appendChild(newName);
+  newStudent.appendChild(newSchool);
+  newStudent.appendChild(newAge);
+
+  newTable.appendChild(newFrame);
+  newTable.appendChild(newStudent);
+  main.querySelector(`.classStudent .content[pageIndex="${thisIndex}"]`).querySelectorAll(".section")[0].appendChild(newTable);
 }
 
 // Firebase
