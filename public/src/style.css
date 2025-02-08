@@ -29,12 +29,12 @@ body {
   flex-direction: row;
 }
 .main-page.classStudent .list {
-  flex: 0.5;
+  flex: 1;
   height: 100%;
   border: 1px solid blue;
 }
 .main-page.classStudent .content {
-  flex: 9.5;
+  flex: 9;
   height: 100%;
   border: 1px solid red;
 }
@@ -49,8 +49,9 @@ body {
 }
 .main-page.classStudent .content .classTable {
   border: 1px solid black;
-  width: 90%;
+  width: 100%;
   margin-bottom: 2%;
+  border-bottom: none;
 }
 .main-page.classStudent .list .btnList {
   width: 100%;
@@ -141,6 +142,8 @@ body {
 }
 .allStudent .delete {
   flex: 1;
+  border: 0;
+  padding: 0;
 }
 .allStudent .order,
 .allStudent .name,
@@ -159,6 +162,15 @@ body {
   width: 100%;
   height: 4%;
   outline: 1px solid black;
+}
+.classStudent .classNameFrame {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 4%;
+  outline: 1px solid black;
+  background-color: rgb(231, 226, 226);
 }
 .classStudent .orderFrame {
   flex: 1.5;
@@ -183,6 +195,10 @@ body {
   outline: 1px solid black;
   display: flex;
   justify-content: center;
+  align-items: center;
+}
+.classStudent .addFrame {
+  display: flex;
   align-items: center;
 }
 .classStudent .student {
@@ -234,6 +250,9 @@ body {
   align-items: center;
 }
 
+.clickedDiv {
+  background-color: rgb(231, 226, 226);
+}
 .hide {
   display: none !important;
 }

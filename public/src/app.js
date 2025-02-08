@@ -15,11 +15,14 @@ const btnTestStudent = footer.querySelector(".btnTestStudent");
 const btnMoneyStudent = footer.querySelector(".btnMoneyStudent");
 const btnRandomStudent = footer.querySelector(".btnRandomStudent");
 
-const btnAdd = document.querySelectorAll(".btnAdd");
-const btnDelete = document.querySelectorAll(".delete");
+const btnAdd = allStudent.querySelectorAll(".btnAdd");
+const btnDelete = allStudent.querySelectorAll(".delete");
 
-const btnList = document.querySelectorAll(".btnList:not(.btnAddTable)");
-const btnAddTable = document.querySelector(".btnAddTable");
+const allSection = classStudent.querySelectorAll(".section");
+const btnList = classStudent.querySelectorAll(".btnList:not(.btnAddTable)");
+const btnAddTable = classStudent.querySelector(".btnAddTable");
+
+let clickedDiv;
 
 btnAllStudent.addEventListener("click", turnPageInStudent);
 btnClassStudent.addEventListener("click", turnPageInStudent);
@@ -27,16 +30,54 @@ btnTestStudent.addEventListener("click", turnPageInStudent);
 btnMoneyStudent.addEventListener("click", turnPageInStudent);
 btnRandomStudent.addEventListener("click", turnPageInStudent);
 btnAdd.forEach((btn) => {
-  btn.addEventListener("click", addStudentInStudent);
+  btn.addEventListener("click", addStudent);
 });
 btnDelete.forEach((btn) => {
-  btn.addEventListener("click", deleteStudentInStudent);
+  btn.addEventListener("click", deleteStudent);
 });
 btnList.forEach((btn) => {
   btn.addEventListener("click", turnPageInClass);
 });
 btnAddTable.addEventListener("click", addTableInclass);
+allSection.forEach((section) => {
+  section.addEventListener("click", (event) => {
+    if (event.target === event.currentTarget) {
+      clickDiv(event);
+    }
+  });
+});
 document.addEventListener("keydown", save);
+
+// 공통
+function addStudent(event) {
+  const newStudent = document.createElement("div");
+  const newOrder = document.createElement("div");
+  const newName = document.createElement("div");
+  const newSchool = document.createElement("div");
+  const newAge = document.createElement("div");
+  const newDelete = document.createElement("button");
+  newStudent.classList.add("student");
+  newOrder.classList.add("order");
+  newName.classList.add("name");
+  newSchool.classList.add("school");
+  newAge.classList.add("age");
+  newDelete.classList.add("delete");
+  newName.setAttribute("contenteditable", true);
+  newSchool.setAttribute("contenteditable", true);
+  newAge.setAttribute("contenteditable", true);
+  newDelete.innerText = "-";
+  newDelete.addEventListener("click", deleteStudent);
+  newStudent.appendChild(newOrder);
+  newStudent.appendChild(newName);
+  newStudent.appendChild(newSchool);
+  newStudent.appendChild(newAge);
+  newStudent.appendChild(newDelete);
+
+  event.target.parentNode.insertBefore(newStudent, event.target.parentNode.lastElementChild);
+}
+function deleteStudent(event) {
+  event.target.parentNode.remove();
+}
 
 // 첫번째 페이지
 function turnPageInStudent(event) {
@@ -66,7 +107,7 @@ function addStudentInStudent(event) {
   const newDelete = document.createElement("button");
   newDelete.classList.add("delete");
   newDelete.innerText = "X";
-  newDelete.addEventListener("click", deleteStudentInStudent);
+  newDelete.addEventListener("click", deleteStudent);
   newStudent.appendChild(newOrder);
   newStudent.appendChild(newName);
   newStudent.appendChild(newSchool);
@@ -89,58 +130,72 @@ function turnPageInClass(event) {
   main.querySelector(`.main-page.classStudent .content[pageIndex="${thisIndex}"]`).classList.remove("hide");
 }
 function addTableInclass() {
-  const thisIndex = classStudent.querySelector(".content:not(.hide)").getAttribute("pageIndex");
-
   const newTable = document.createElement("div");
+  const newClassName = document.createElement("div");
   const newFrame = document.createElement("div");
   const newOrderFrame = document.createElement("div");
   const newNameFrame = document.createElement("div");
   const newSchoolFrame = document.createElement("div");
   const newAgeFrame = document.createElement("div");
+  const newDeleteFrame = document.createElement("button");
+  const newAddFrame = document.createElement("button");
+
   newTable.classList.add("classTable");
   newFrame.classList.add("studentFrame");
+  newClassName.classList.add("classNameFrame");
   newOrderFrame.classList.add("orderFrame");
   newNameFrame.classList.add("nameFrame");
   newSchoolFrame.classList.add("schoolFrame");
   newAgeFrame.classList.add("ageFrame");
+  newDeleteFrame.classList.add("deleteFrame");
+  newAddFrame.classList.add("addFrame");
+
+  newClassName.setAttribute("contenteditable", true);
   newOrderFrame.innerText = "순서";
   newNameFrame.innerText = "이름";
   newSchoolFrame.innerText = "학교";
   newAgeFrame.innerText = "학년";
+  newDeleteFrame.innerText = "X";
+  newAddFrame.innerText = "+";
+
+  newDeleteFrame.addEventListener("click", deleteClassTable);
+  newAddFrame.addEventListener("click", addStudent);
+
   newFrame.appendChild(newOrderFrame);
   newFrame.appendChild(newNameFrame);
   newFrame.appendChild(newSchoolFrame);
   newFrame.appendChild(newAgeFrame);
+  newFrame.appendChild(newDeleteFrame);
 
-  const newStudent = document.createElement("div");
-  const newOrder = document.createElement("div");
-  const newName = document.createElement("div");
-  const newSchool = document.createElement("div");
-  const newAge = document.createElement("div");
-  newStudent.classList.add("student");
-  newOrder.classList.add("order");
-  newName.classList.add("name");
-  newSchool.classList.add("school");
-  newAge.classList.add("age");
-  newName.setAttribute("contenteditable", true);
-  newSchool.setAttribute("contenteditable", true);
-  newAge.setAttribute("contenteditable", true);
-  newStudent.appendChild(newOrder);
-  newStudent.appendChild(newName);
-  newStudent.appendChild(newSchool);
-  newStudent.appendChild(newAge);
-
+  newTable.appendChild(newClassName);
   newTable.appendChild(newFrame);
-  newTable.appendChild(newStudent);
-  main.querySelector(`.classStudent .content[pageIndex="${thisIndex}"]`).querySelectorAll(".section")[0].appendChild(newTable);
+  newTable.appendChild(newAddFrame);
+  clickedDiv && clickedDiv !== "" && clickedDiv.appendChild(newTable);
 }
-
+function deleteClassTable(event) {
+  event.target.parentNode.parentNode.remove();
+}
+function clickDiv(event) {
+  if (clickedDiv) {
+    if (event.target.classList.contains("clickedDiv")) {
+      event.target.classList.remove("clickedDiv");
+      clickedDiv = "";
+    } else {
+      clickedDiv.classList.remove("clickedDiv");
+      clickedDiv = event.target;
+      clickedDiv.classList.add("clickedDiv");
+    }
+  } else {
+    clickedDiv = event.target;
+    clickedDiv.classList.add("clickedDiv");
+  }
+}
 // Firebase
 async function save(event) {
   if (event.ctrlKey) {
     if (event.key === "s") {
       event.preventDefault();
-
+      // 첫번째 페이지
       //초등
       let elementaryData = [];
       const elementaryStudents = allStudent.querySelector(".elementary").querySelectorAll(".student");
@@ -180,6 +235,28 @@ async function save(event) {
       await setDoc(doc(db, "studentData", "high"), {
         data: highData,
       });
+
+      // 두번째 페이지
+      // 초등
+      let elementaryClassData = [];
+      const elementaryClassStudent = classStudent.querySelector(".elementary").querySelectorAll(".student");
+      for (let i = 0; i < elementaryClassStudent.length; i++) {
+        let tempObj = {};
+        tempObj.section = elementaryClassStudent[i].parentNode.parentNode.classList[1];
+        tempObj.class = elementaryClassStudent[i].parentNode.firstElementChild.innerText;
+        tempObj.name = elementaryClassStudent[i].querySelector(".name").innerText;
+        tempObj.school = elementaryClassStudent[i].querySelector(".school").innerText;
+        tempObj.age = elementaryClassStudent[i].querySelector(".age").innerText;
+        elementaryClassData.push(tempObj);
+      }
+      await setDoc(doc(db, "classData", "elementary"), {
+        data: elementaryClassData,
+      });
+      console.log(elementaryClassData);
+
+      // 중등
+
+      // 고등
     }
   }
 }
@@ -216,8 +293,8 @@ async function getData() {
       newAge.setAttribute("contentEditable", true);
       const newDelete = document.createElement("button");
       newDelete.classList.add("delete");
-      newDelete.innerText = "X";
-      newDelete.addEventListener("click", deleteStudentInStudent);
+      newDelete.innerText = "-";
+      newDelete.addEventListener("click", deleteStudent);
 
       newStudent.appendChild(newOrder);
       newStudent.appendChild(newName);
@@ -228,5 +305,4 @@ async function getData() {
     }
   }
 }
-
 getData();
