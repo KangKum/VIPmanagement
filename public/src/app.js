@@ -195,68 +195,58 @@ async function save(event) {
   if (event.ctrlKey) {
     if (event.key === "s") {
       event.preventDefault();
+      const dataName = ["elementary", "middle", "high"];
+
       // 첫번째 페이지
       //초등
-      let elementaryData = [];
+      const elementaryData = [];
+      const middleData = [];
+      const highData = [];
+      const datas = [elementaryData, middleData, highData];
+
       const elementaryStudents = allStudent.querySelector(".elementary").querySelectorAll(".student");
-      for (let i = 0; i < elementaryStudents.length; i++) {
-        let tempObj = {};
-        tempObj.name = elementaryStudents[i].querySelector(".name").innerText;
-        tempObj.school = elementaryStudents[i].querySelector(".school").innerText;
-        tempObj.age = elementaryStudents[i].querySelector(".age").innerText;
-        elementaryData.push(tempObj);
-      }
-      //중등
-      let middleData = [];
       const middleStudents = allStudent.querySelector(".middle").querySelectorAll(".student");
-      for (let i = 0; i < middleStudents.length; i++) {
-        let tempObj = {};
-        tempObj.name = middleStudents[i].querySelector(".name").innerText;
-        tempObj.school = middleStudents[i].querySelector(".school").innerText;
-        tempObj.age = middleStudents[i].querySelector(".age").innerText;
-        middleData.push(tempObj);
-      }
-      //고등
-      let highData = [];
       const highStudents = allStudent.querySelector(".high").querySelectorAll(".student");
-      for (let i = 0; i < highStudents.length; i++) {
-        let tempObj = {};
-        tempObj.name = highStudents[i].querySelector(".name").innerText;
-        tempObj.school = highStudents[i].querySelector(".school").innerText;
-        tempObj.age = highStudents[i].querySelector(".age").innerText;
-        highData.push(tempObj);
+      const studentData = [elementaryStudents, middleStudents, highStudents];
+
+      for (let j = 0; j < studentData.length; j++) {
+        for (let i = 0; i < studentData[j].length; i++) {
+          let tempObj = {};
+          tempObj.name = studentData[j][i].querySelector(".name").innerText;
+          tempObj.school = studentData[j][i].querySelector(".school").innerText;
+          tempObj.age = studentData[j][i].querySelector(".age").innerText;
+          datas[j].push(tempObj);
+        }
+        await setDoc(doc(db, "studentData", `${dataName[j]}`), {
+          data: datas[j],
+        });
       }
-      await setDoc(doc(db, "studentData", "elementary"), {
-        data: elementaryData,
-      });
-      await setDoc(doc(db, "studentData", "middle"), {
-        data: middleData,
-      });
-      await setDoc(doc(db, "studentData", "high"), {
-        data: highData,
-      });
 
       // 두번째 페이지
-      // 초등
-      let elementaryClassData = [];
+      const elementaryClassData = [];
+      const middleClassData = [];
+      const highClassData = [];
+      const classData = [elementaryClassData, middleClassData, highClassData];
+
       const elementaryClassStudent = classStudent.querySelector(".elementary").querySelectorAll(".student");
-      for (let i = 0; i < elementaryClassStudent.length; i++) {
-        let tempObj = {};
-        tempObj.section = elementaryClassStudent[i].parentNode.parentNode.classList[1];
-        tempObj.class = elementaryClassStudent[i].parentNode.firstElementChild.innerText;
-        tempObj.name = elementaryClassStudent[i].querySelector(".name").innerText;
-        tempObj.school = elementaryClassStudent[i].querySelector(".school").innerText;
-        tempObj.age = elementaryClassStudent[i].querySelector(".age").innerText;
-        elementaryClassData.push(tempObj);
+      const middleClassStudent = classStudent.querySelector(".middle").querySelectorAll(".student");
+      const highClassStudent = classStudent.querySelector(".high").querySelectorAll(".student");
+      const classStudentData = [elementaryClassStudent, middleClassStudent, highClassStudent];
+
+      for (let j = 0; j < classStudentData.length; j++) {
+        for (let i = 0; i < classStudentData[j].length; i++) {
+          let tempObj = {};
+          tempObj.section = classStudentData[j][i].parentNode.parentNode.classList[1];
+          tempObj.class = classStudentData[j][i].parentNode.firstElementChild.innerText;
+          tempObj.name = classStudentData[j][i].querySelector(".name").innerText;
+          tempObj.school = classStudentData[j][i].querySelector(".school").innerText;
+          tempObj.age = classStudentData[j][i].querySelector(".age").innerText;
+          classData[j].push(tempObj);
+        }
+        await setDoc(doc(db, "classData", `${dataName[j]}`), {
+          data: classData[j],
+        });
       }
-      await setDoc(doc(db, "classData", "elementary"), {
-        data: elementaryClassData,
-      });
-      console.log(elementaryClassData);
-
-      // 중등
-
-      // 고등
     }
   }
 }
