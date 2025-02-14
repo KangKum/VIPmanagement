@@ -22,57 +22,7 @@ body {
   height: 100%;
   display: flex;
 }
-.main-page.allStudent {
-  flex-direction: row;
-}
-.main-page.classStudent {
-  flex-direction: row;
-}
-.main-page.classStudent .list {
-  flex: 1;
-  height: 100%;
-  border: 1px solid blue;
-}
-.main-page.classStudent .content {
-  flex: 9;
-  height: 100%;
-  border: 1px solid red;
-}
-.main-page.classStudent .content {
-  display: flex;
-  flex-direction: row;
-}
-.main-page.classStudent .content .section {
-  flex: 1;
-  height: 100%;
-  border: 1px solid black;
-  position: relative;
-}
-.main-page.classStudent .content .classTable {
-  border: 1px solid black;
-  width: 100%;
-  margin-bottom: 2%;
-  border-bottom: none;
-  z-index: 1000;
-}
-.main-page.classStudent .content .classTable.activeOutline:hover {
-  border-bottom: 2px solid orange;
-}
-.main-page.classStudent .list .btnList {
-  width: 100%;
-  height: 5%;
-}
-.main-page.allStudent .elementary,
-.main-page.allStudent .middle,
-.main-page.allStudent .high {
-  flex: 1;
-  border: 2px solid black;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  overflow-y: scroll;
-}
+
 .title {
   width: 100%;
   height: 3%;
@@ -93,7 +43,22 @@ body {
   margin-top: 1%;
 }
 
-/* 첫번째 페이지지 */
+/* 첫번째 페이지 */
+.main-page.allStudent {
+  flex-direction: row;
+}
+
+.main-page.allStudent .elementary,
+.main-page.allStudent .middle,
+.main-page.allStudent .high {
+  flex: 1;
+  border: 2px solid black;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-y: scroll;
+}
 .allStudent .studentFrame {
   display: flex;
   flex-direction: row;
@@ -161,6 +126,44 @@ body {
   align-items: center;
 }
 /* 두번째 페이지 */
+.main-page.classStudent {
+  flex-direction: row;
+}
+.main-page.classStudent .list {
+  flex: 1;
+  height: 100%;
+  border: 1px solid blue;
+}
+.main-page.classStudent .content {
+  flex: 9;
+  height: 100%;
+  border: 1px solid red;
+}
+.main-page.classStudent .content {
+  display: flex;
+  flex-direction: row;
+}
+.main-page.classStudent .content .section {
+  flex: 1;
+  height: 100%;
+  border: 1px solid black;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.main-page.classStudent .content .classTable {
+  border: 1px solid black;
+  width: 100%;
+  margin-bottom: 2%;
+  border-bottom: none;
+  z-index: 1000;
+}
+.main-page.classStudent .content .classTable.activeOutline:hover {
+  border-bottom: 2px solid orange;
+}
+.main-page.classStudent .list .btnList {
+  width: 100%;
+  height: 5%;
+}
 .classStudent .studentFrame {
   display: flex;
   flex-direction: row;
@@ -212,6 +215,9 @@ body {
   width: 100%;
   outline: 1px solid black;
 }
+.classStudent .section.activeOutline:hover {
+  border-top: 2px solid orange;
+}
 .classStudent .student.activeOutline:hover {
   border-bottom: 2px solid orange;
 }
@@ -239,6 +245,46 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+/* 세번째 페이지 */
+.testStudent {
+  display: flex;
+  flex-direction: row;
+}
+.testStudent .list {
+  flex: 1;
+  height: 100%;
+  border: blue 1px solid;
+}
+.testStudent .content {
+  flex: 9;
+  height: 100%;
+  border: red 1px solid;
+
+  display: flex;
+  flex-direction: row;
+}
+.testStudent .content .section {
+  flex: 1;
+  height: 100%;
+  border: 1px solid black;
+  display: flex;
+  flex-direction: row;
+}
+.testStudent .list .firstLine,
+.testStudent .list .secondLine {
+  display: flex;
+  flex-direction: row;
+  height: 5vh;
+}
+/* .testStudent .list .btnMiddle,
+.testStudent .list .btnHigh {
+  flex: 1;
+  height: 100%;
+} */
+.testStudent .list .btnList {
+  flex: 1;
+  height: 100%;
 }
 /*  */
 .footer {

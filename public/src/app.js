@@ -31,7 +31,6 @@ const btnAddTable = classStudent.querySelector(".btnAddTable");
 let clickedDiv;
 let allClassTable;
 let allClassStudent;
-let isMove = false;
 
 btnAllStudent.addEventListener("click", turnPageInStudent);
 btnClassStudent.addEventListener("click", turnPageInStudent);
@@ -58,18 +57,27 @@ classStudent.addEventListener("click", (event) => {
   if (!clickedDiv) return;
   if (clickedDiv.classList.contains("classTable")) {
     if (event.target.classList.contains("activeOutline")) {
-      let parentDiv = event.target.parentNode;
-      let childrenDiv = Array.from(parentDiv.children);
-      let index = childrenDiv.indexOf(event.target) + 1;
-      parentDiv.insertBefore(clickedDiv, childrenDiv[index]);
+      if (event.target.classList.contains("classTable")) {
+        let parentDiv = event.target.parentNode;
+        let childrenDiv = Array.from(parentDiv.children);
+        let index = childrenDiv.indexOf(event.target) + 1;
+        parentDiv.insertBefore(clickedDiv, childrenDiv[index]);
+      }
     }
   } else if (clickedDiv.classList.contains("student")) {
-    if (event.target.classList.contains("activeOutline")) {
-      console.log("yes2");
+    if (clickedDiv !== event.target.parentNode) {
+      if (event.target.classList.contains("student")) {
+        let parentDiv = event.target.parentNode;
+        let childrenDiv = Array.from(parentDiv.children);
+        let index = childrenDiv.indexOf(event.target) + 1;
+        parentDiv.insertBefore(clickedDiv, childrenDiv[index]);
+      } else if (event.target.parentNode.classList.contains("student")) {
+        let parentDiv = event.target.parentNode.parentNode;
+        let childrenDiv = Array.from(parentDiv.children);
+        let index = childrenDiv.indexOf(event.target.parentNode) + 1;
+        parentDiv.insertBefore(clickedDiv, childrenDiv[index]);
+      }
     }
-    // else if (event.target.parentNode.classList.contains("activeOutline")) {
-    //   console.log("yes3");
-    // }
   }
 });
 
@@ -189,39 +197,6 @@ function turnPageInStudent(event) {
   });
   main.querySelector(`.main-page[pageIndex="${thisIndex}"]`).classList.remove("hide");
 }
-function addStudentInStudent(event) {
-  const parentDiv = event.target.parentNode;
-  const lastChild = event.target;
-
-  const newStudent = document.createElement("div");
-  newStudent.classList.add("student");
-  const newOrder = document.createElement("div");
-  newOrder.classList.add("order");
-  const newName = document.createElement("div");
-  newName.classList.add("name");
-  newName.setAttribute("contentEditable", true);
-  const newSchool = document.createElement("div");
-  newSchool.classList.add("school");
-  newSchool.setAttribute("contentEditable", true);
-  const newAge = document.createElement("div");
-  newAge.classList.add("age");
-  newAge.setAttribute("contentEditable", true);
-  const newDelete = document.createElement("button");
-  newDelete.classList.add("delete");
-  newDelete.innerText = "X";
-  newDelete.addEventListener("click", deleteStudent);
-  newStudent.appendChild(newOrder);
-  newStudent.appendChild(newName);
-  newStudent.appendChild(newSchool);
-  newStudent.appendChild(newAge);
-  newStudent.appendChild(newDelete);
-
-  parentDiv.insertBefore(newStudent, lastChild);
-}
-function deleteStudentInStudent(event) {
-  const thisStudent = event.target.parentNode;
-  thisStudent.remove();
-}
 
 // 두번째 페이지
 function turnPageInClass(event) {
@@ -336,22 +311,18 @@ function clickDiv(event) {
   ///////////////////////////////////////////////////////////////////////////////////////
   allClassTable.forEach((table) => table.classList.remove("activeOutline"));
   allClassStudent.forEach((student) => student.classList.remove("activeOutline"));
-  isMove = false;
 
   if (!clickedDiv) return;
   if (clickedDiv.classList.contains("classTable")) {
     allClassTable.forEach((table) => table.classList.add("activeOutline"));
-    isMove = true;
   } else if (clickedDiv.classList.contains("student")) {
     allClassStudent.forEach((student) => student.classList.add("activeOutline"));
-    isMove = true;
   }
 }
 function findClassTable() {
   allClassTable = main.querySelectorAll(".classTable");
   allClassStudent = main.querySelectorAll(".classStudent .student");
 }
-function detectTableBorder() {}
 // Firebase
 async function save(event) {
   if (event.ctrlKey) {
