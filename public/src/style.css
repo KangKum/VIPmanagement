@@ -46,20 +46,25 @@ body {
   flex: 1;
   height: 100%;
   border: 1px solid black;
+  position: relative;
 }
 .main-page.classStudent .content .classTable {
   border: 1px solid black;
   width: 100%;
   margin-bottom: 2%;
   border-bottom: none;
+  z-index: 1000;
+}
+.main-page.classStudent .content .classTable.activeOutline:hover {
+  border-bottom: 2px solid orange;
 }
 .main-page.classStudent .list .btnList {
   width: 100%;
   height: 5%;
 }
-.elementary,
-.middle,
-.high {
+.main-page.allStudent .elementary,
+.main-page.allStudent .middle,
+.main-page.allStudent .high {
   flex: 1;
   border: 2px solid black;
   height: 100%;
@@ -207,6 +212,9 @@ body {
   width: 100%;
   outline: 1px solid black;
 }
+.classStudent .student.activeOutline:hover {
+  border-bottom: 2px solid orange;
+}
 .classStudent .order {
   flex: 1.5;
 }
@@ -251,8 +259,16 @@ body {
 }
 
 .clickedDiv {
-  background-color: rgb(231, 226, 226);
+  /* background-color: blue; */
+  border: 2px solid blue !important;
 }
 .hide {
   display: none !important;
+}
+.draggable {
+  width: 30px;
+  height: 30px;
+  border: 1px solid black;
+  cursor: grab;
+  user-select: none;
 }

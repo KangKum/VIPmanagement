@@ -1,6 +1,8 @@
 import { getFirestore, collection, doc, addDoc, setDoc, getDoc, getDocs, deleteDoc } from "https://www.gstatic.com/firebasejs/11.3.0/firebase-firestore.js";
 const db = getFirestore();
+getData();
 
+//main영역 1-5페이지
 const main = document.querySelector(".main");
 const allStudent = document.querySelector(".allStudent");
 const classStudent = document.querySelector(".classStudent");
@@ -8,6 +10,7 @@ const testStudent = document.querySelector(".testStudent");
 const moneyStudent = document.querySelector(".moneyStudent");
 const randomStudent = document.querySelector(".randomStudent");
 
+//footer영역 1-5버튼
 const footer = document.querySelector(".footer");
 const btnAllStudent = footer.querySelector(".btnAllStudent");
 const btnClassStudent = footer.querySelector(".btnClassStudent");
@@ -15,14 +18,20 @@ const btnTestStudent = footer.querySelector(".btnTestStudent");
 const btnMoneyStudent = footer.querySelector(".btnMoneyStudent");
 const btnRandomStudent = footer.querySelector(".btnRandomStudent");
 
+//공통버튼
 const btnAdd = allStudent.querySelectorAll(".btnAdd");
 const btnDelete = allStudent.querySelectorAll(".delete");
 
+//2번째 페이지
 const allSection = classStudent.querySelectorAll(".section");
 const btnList = classStudent.querySelectorAll(".btnList:not(.btnAddTable)");
 const btnAddTable = classStudent.querySelector(".btnAddTable");
 
+//변수
 let clickedDiv;
+let allClassTable;
+let allClassStudent;
+let isMove = false;
 
 btnAllStudent.addEventListener("click", turnPageInStudent);
 btnClassStudent.addEventListener("click", turnPageInStudent);
@@ -40,13 +49,29 @@ btnList.forEach((btn) => {
 });
 btnAddTable.addEventListener("click", addTableInclass);
 allSection.forEach((section) => {
-  section.addEventListener("click", (event) => {
-    if (event.target === event.currentTarget) {
-      clickDiv(event);
-    }
-  });
+  section.addEventListener("click", findClassTable);
+  section.addEventListener("click", clickDiv);
 });
+
 document.addEventListener("keydown", save);
+classStudent.addEventListener("click", (event) => {
+  if (!clickedDiv) return;
+  if (clickedDiv.classList.contains("classTable")) {
+    if (event.target.classList.contains("activeOutline")) {
+      let parentDiv = event.target.parentNode;
+      let childrenDiv = Array.from(parentDiv.children);
+      let index = childrenDiv.indexOf(event.target) + 1;
+      parentDiv.insertBefore(clickedDiv, childrenDiv[index]);
+    }
+  } else if (clickedDiv.classList.contains("student")) {
+    if (event.target.classList.contains("activeOutline")) {
+      console.log("yes2");
+    }
+    // else if (event.target.parentNode.classList.contains("activeOutline")) {
+    //   console.log("yes3");
+    // }
+  }
+});
 
 // 공통
 function addStudent(event) {
@@ -247,26 +272,86 @@ function addTableInclass() {
   newTable.appendChild(newClassName);
   newTable.appendChild(newFrame);
   newTable.appendChild(newAddFrame);
-  clickedDiv && clickedDiv !== "" && clickedDiv.appendChild(newTable);
+  if (clickedDiv && clickedDiv !== "" && clickedDiv.classList.contains("section")) {
+    clickedDiv.appendChild(newTable);
+  }
+
+  allClassTable = main.querySelectorAll(".classTable");
 }
 function deleteClassTable(event) {
   event.target.parentNode.parentNode.remove();
+
+  allClassTable = main.querySelectorAll(".classTable");
 }
 function clickDiv(event) {
-  if (clickedDiv) {
-    if (event.target.classList.contains("clickedDiv")) {
-      event.target.classList.remove("clickedDiv");
-      clickedDiv = "";
+  if (event.target.classList.contains("section")) {
+    //
+    if (clickedDiv) {
+      if (event.target.classList.contains("clickedDiv")) {
+        event.target.classList.remove("clickedDiv");
+        clickedDiv = "";
+      } else {
+        clickedDiv.classList.remove("clickedDiv");
+        clickedDiv = event.target;
+        clickedDiv.classList.add("clickedDiv");
+      }
     } else {
-      clickedDiv.classList.remove("clickedDiv");
       clickedDiv = event.target;
       clickedDiv.classList.add("clickedDiv");
     }
-  } else {
-    clickedDiv = event.target;
-    clickedDiv.classList.add("clickedDiv");
+    //
+  } else if (event.target.classList.contains("classNameFrame")) {
+    //
+    if (clickedDiv) {
+      if (event.target.parentNode.classList.contains("clickedDiv")) {
+        event.target.parentNode.classList.remove("clickedDiv");
+        clickedDiv = "";
+      } else {
+        clickedDiv.classList.remove("clickedDiv");
+        clickedDiv = event.target.parentNode;
+        clickedDiv.classList.add("clickedDiv");
+      }
+    } else {
+      clickedDiv = event.target.parentNode;
+      clickedDiv.classList.add("clickedDiv");
+    }
+    //
+  } else if (event.target.classList.contains("order")) {
+    //
+    if (clickedDiv) {
+      if (event.target.parentNode.classList.contains("clickedDiv")) {
+        event.target.parentNode.classList.remove("clickedDiv");
+        clickedDiv = "";
+      } else {
+        clickedDiv.classList.remove("clickedDiv");
+        clickedDiv = event.target.parentNode;
+        clickedDiv.classList.add("clickedDiv");
+      }
+    } else {
+      clickedDiv = event.target.parentNode;
+      clickedDiv.classList.add("clickedDiv");
+    }
+    //
+  }
+  ///////////////////////////////////////////////////////////////////////////////////////
+  allClassTable.forEach((table) => table.classList.remove("activeOutline"));
+  allClassStudent.forEach((student) => student.classList.remove("activeOutline"));
+  isMove = false;
+
+  if (!clickedDiv) return;
+  if (clickedDiv.classList.contains("classTable")) {
+    allClassTable.forEach((table) => table.classList.add("activeOutline"));
+    isMove = true;
+  } else if (clickedDiv.classList.contains("student")) {
+    allClassStudent.forEach((student) => student.classList.add("activeOutline"));
+    isMove = true;
   }
 }
+function findClassTable() {
+  allClassTable = main.querySelectorAll(".classTable");
+  allClassStudent = main.querySelectorAll(".classStudent .student");
+}
+function detectTableBorder() {}
 // Firebase
 async function save(event) {
   if (event.ctrlKey) {
@@ -376,5 +461,3 @@ async function getData() {
     }
   }
 }
-getData();
-// 두번째 페이지 마우스로 반 옮기는거 해야돼
