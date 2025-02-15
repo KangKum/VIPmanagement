@@ -27,6 +27,27 @@ const allSection = classStudent.querySelectorAll(".section");
 const btnList = classStudent.querySelectorAll(".btnList:not(.btnAddTable)");
 const btnAddTable = classStudent.querySelector(".btnAddTable");
 
+//3번째 페이지
+const btnMiddleStudent = testStudent.querySelector(".list .btnMiddle");
+const btnHighStudent = testStudent.querySelector(".list .btnHigh");
+
+const btnFirstGrade = testStudent.querySelector(".list .btnFirst");
+const btnSecondGrade = testStudent.querySelector(".list .btnSecond");
+const btnThirdGrade = testStudent.querySelector(".list .btnThird");
+
+const pageMiddleStudent = testStudent.querySelector(".content.middle");
+const pageHighStudent = testStudent.querySelector(".content.high");
+
+const pageMiddleFirst = testStudent.querySelector(".content.middle .pageFirst");
+const pageMiddleSecond = testStudent.querySelector(".content.middle .pageSecond");
+const pageMiddleThird = testStudent.querySelector(".content.middle .pageThrid");
+const pageHighFirst = testStudent.querySelector(".content.high .pageFirst");
+const pageHighSecond = testStudent.querySelector(".content.high .pageSecond");
+const pageHighThird = testStudent.querySelector(".content.high .pageThrid");
+
+const allBtnInTest = [btnFirstGrade, btnSecondGrade, btnThirdGrade];
+const allPageInTest = [pageMiddleFirst, pageMiddleSecond, pageMiddleThird, pageHighFirst, pageHighSecond, pageHighThird];
+
 //변수
 let clickedDiv;
 let allClassTable;
@@ -51,7 +72,6 @@ allSection.forEach((section) => {
   section.addEventListener("click", findClassTable);
   section.addEventListener("click", clickDiv);
 });
-
 document.addEventListener("keydown", save);
 classStudent.addEventListener("click", (event) => {
   if (!clickedDiv) return;
@@ -80,7 +100,11 @@ classStudent.addEventListener("click", (event) => {
     }
   }
 });
-
+btnMiddleStudent.addEventListener("click", turnPageInTest);
+btnHighStudent.addEventListener("click", turnPageInTest);
+btnFirstGrade.addEventListener("click", turnPageInTest);
+btnSecondGrade.addEventListener("click", turnPageInTest);
+btnThirdGrade.addEventListener("click", turnPageInTest);
 // 공통
 function addStudent(event) {
   const newStudent = document.createElement("div");
@@ -322,6 +346,69 @@ function clickDiv(event) {
 function findClassTable() {
   allClassTable = main.querySelectorAll(".classTable");
   allClassStudent = main.querySelectorAll(".classStudent .student");
+}
+
+// 세번째 페이지
+function btnAndPageInit() {
+  allBtnInTest.forEach((btn) => {
+    btn.classList.remove("btnClicked");
+  });
+  allPageInTest.forEach((page) => {
+    page.classList.add("hide");
+  });
+}
+function turnPageInTest(event) {
+  if (event.target === btnMiddleStudent) {
+    btnHighStudent.classList.remove("btnClicked");
+    event.target.classList.add("btnClicked");
+    btnAndPageInit();
+  } else if (event.target === btnHighStudent) {
+    btnMiddleStudent.classList.remove("btnClicked");
+    event.target.classList.add("btnClicked");
+    btnAndPageInit();
+  } else if (event.target === btnFirstGrade) {
+    if (btnMiddleStudent.classList.contains("btnClicked")) {
+      btnAndPageInit();
+      event.target.classList.add("btnClicked");
+      pageHighStudent.classList.add("hide");
+      pageMiddleStudent.classList.remove("hide");
+      pageMiddleFirst.classList.remove("hide");
+    } else if (btnHighStudent.classList.contains("btnClicked")) {
+      btnAndPageInit();
+      event.target.classList.add("btnClicked");
+      pageMiddleStudent.classList.add("hide");
+      pageHighStudent.classList.remove("hide");
+      pageHighFirst.classList.remove("hide");
+    }
+  } else if (event.target === btnSecondGrade) {
+    if (btnMiddleStudent.classList.contains("btnClicked")) {
+      btnAndPageInit();
+      event.target.classList.add("btnClicked");
+      pageHighStudent.classList.add("hide");
+      pageMiddleStudent.classList.remove("hide");
+      pageMiddleSecond.classList.remove("hide");
+    } else if (btnHighStudent.classList.contains("btnClicked")) {
+      btnAndPageInit();
+      event.target.classList.add("btnClicked");
+      pageMiddleStudent.classList.add("hide");
+      pageHighStudent.classList.remove("hide");
+      pageHighSecond.classList.remove("hide");
+    }
+  } else if (event.target === btnThirdGrade) {
+    if (btnMiddleStudent.classList.contains("btnClicked")) {
+      btnAndPageInit();
+      event.target.classList.add("btnClicked");
+      pageHighStudent.classList.add("hide");
+      pageMiddleStudent.classList.remove("hide");
+      pageMiddleThird.classList.remove("hide");
+    } else if (btnHighStudent.classList.contains("btnClicked")) {
+      btnAndPageInit();
+      event.target.classList.add("btnClicked");
+      pageMiddleStudent.classList.add("hide");
+      pageHighStudent.classList.remove("hide");
+      pageHighThird.classList.remove("hide");
+    }
+  }
 }
 // Firebase
 async function save(event) {

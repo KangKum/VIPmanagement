@@ -42,6 +42,9 @@ body {
   border-radius: 60%;
   margin-top: 1%;
 }
+.btnClicked {
+  background-color: aliceblue;
+}
 
 /* 첫번째 페이지 */
 .main-page.allStudent {
@@ -272,16 +275,15 @@ body {
   flex-direction: row;
 }
 .testStudent .list .firstLine,
-.testStudent .list .secondLine {
+.testStudent .list .secondLine,
+.testStudent .list .thirdLine {
   display: flex;
   flex-direction: row;
   height: 5vh;
 }
-/* .testStudent .list .btnMiddle,
-.testStudent .list .btnHigh {
-  flex: 1;
-  height: 100%;
-} */
+.testStudent .list .thirdLine .btnAddTestTable {
+  width: 100%;
+}
 .testStudent .list .btnList {
   flex: 1;
   height: 100%;
